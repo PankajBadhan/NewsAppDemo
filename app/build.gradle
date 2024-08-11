@@ -1,0 +1,109 @@
+import com.example.rss.Android
+import com.example.rss.Libs
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Android.compileSdkVersion
+
+    defaultConfig {
+        applicationId Android.applicationId
+        minSdkVersion Android.minSdkVersion
+        targetSdkVersion Android.targetSdkVersion
+        versionCode Android.versionCode
+        versionName Android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary true
+        multiDexEnabled true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation Libs.Common.kotlin
+
+    // Project Submodules
+    implementation project(Libs.Modules.domain)
+    implementation project(Libs.Modules.data)
+
+    // JetPack
+    implementation Libs.Jetpack.lifecycleExtensions
+    implementation Libs.Jetpack.reactiveStreams
+    implementation Libs.Jetpack.material
+    implementation Libs.Jetpack.appCompat
+    implementation Libs.Jetpack.constraintLayout
+    implementation Libs.Jetpack.lifecycleVmKtx
+    implementation Libs.Jetpack.legacySupport
+    implementation Libs.Jetpack.room
+
+    // Dagger
+    implementation Libs.Common.dagger
+    implementation Libs.Common.daggerAndroid
+    kapt Libs.Common.daggerCompiler
+    kapt Libs.Common.daggerAndroidCompiler
+
+    // Rx
+    implementation Libs.Common.rxJava
+    implementation Libs.Common.rxAndroid
+
+    // Retrofit - OkHttp
+    implementation Libs.Common.retrofit
+    implementation Libs.Common.retrofitGson
+    implementation Libs.Common.retrofitRx
+    implementation Libs.Common.okHttpInterceptor
+    implementation Libs.Common.stetho
+    implementation Libs.Common.stetho_OkHttp
+    implementation Libs.Common.retrofitSimpleXmlConverter
+
+
+    // Glide
+    implementation Libs.Common.glide
+    kapt Libs.Common.glideCompiler
+
+    //circleImageView
+    implementation Libs.Common.circleImageView
+
+    //Lottie
+    implementation Libs.Common.lottie
+
+    //sdp
+    implementation Libs.Common.sdp
+
+    //MultiDex
+    implementation Libs.Common.multiDex
+
+    //fireBase & googleServices
+    implementation Libs.Firebase.analytics
+    implementation Libs.Firebase.messaging
+    implementation Libs.Firebase.crashlytics
+    implementation Libs.Firebase.tagManager
+    implementation Libs.Firebase.core
+
+    // Test Dependencies
+    testImplementation Libs.Testing.junit
+    testImplementation Libs.Testing.mockitoKotlin
+    testImplementation Libs.Testing.archTesting
+    androidTestImplementation Libs.Testing.testRunner
+    androidTestImplementation Libs.Testing.espresso
+}
